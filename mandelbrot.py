@@ -63,7 +63,7 @@ def plotMandelbrotGray(Grid=np.zeros((100, 100)), n_grid=100):
 	x = np.arange(0, n_grid + step, step)
 	x_label = ['-2', '-1', '0', '1', '2']
 	y_label = ['2', '1', '0', '-1', '-2']
-	plt.figure(figsize=(1.53, 1.53))
+	plt.figure(figsize=(1.65, 1.65))
 	plt.imshow(Grid, cmap='Greys')
 	title = 'N = ' + str(n_grid)
 	plt.title('N = ' + str(n_grid))
@@ -82,7 +82,7 @@ def plotMandelbrotColored(Grid=np.zeros((100, 100)), n_grid=100):
 	x = np.arange(0, n_grid + step, step)
 	x_label = ['-2', '-1', '0', '1', '2']
 	y_label = ['2', '1', '0', '-1', '-2']
-	plt.figure(figsize=(1.53, 1.53))
+	plt.figure(figsize=(1.65, 1.65))
 	plt.imshow(Grid, cmap="hot")
 	title = 'N = ' + str(n_grid)
 	plt.title('N = ' + str(n_grid))
@@ -103,7 +103,7 @@ def plotMandelbrotLog(Grid=np.zeros((100, 100)), n_grid=100):
 	x = np.arange(0, n_grid + step, step)
 	x_label = ['-2', '-1', '0', '1', '2']
 	y_label = ['2', '1', '0', '-1', '-2']
-	plt.figure(figsize=(1.53, 1.53))
+	plt.figure(figsize=(1.65, 1.65))
 	plt.imshow(Grid, cmap="hot")
 	title = 'N = ' + str(n_grid)
 	plt.title('N = ' + str(n_grid) + ', Log scale')
