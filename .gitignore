@@ -1,7 +1,8 @@
 # Compiled Files #
 ##################
 *.pyc
-*.pdf
+mandelbrot*.pdf
+millikan*.pdf
 
 # OS generated files #
 ######################
