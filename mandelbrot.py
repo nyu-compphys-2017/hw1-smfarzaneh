@@ -11,6 +11,14 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+# figure settings 
+font = {'family' : 'Times New Roman',
+        'weight' : 'normal',
+        'size'   : 9}
+
+matplotlib.rc('font', **font)
+
+
 def isMandelbrot(complex_const=0j, n_iteration=100, initial_z=0, norm_z=2):
 	# Checks if complex_const results a Mandelbrot set. 
 	
@@ -31,14 +39,12 @@ def isMandelbrot(complex_const=0j, n_iteration=100, initial_z=0, norm_z=2):
 	return result, iteration
 
 def mandelbrotGrid(n_grid=100, xy_lim=2):
-	# Generates the grid of complex constants, C, 
+	# Generates the grid of complex constants, 
 	# and assigns values according to isMandelbrot()
 
 	# define the grid points
 	x_vec = np.linspace(-xy_lim, xy_lim, n_grid)
-	y_vec = np.linspace(-xy_lim, xy_lim, n_grid)
-	# x_grid, y_grid = np.meshgrid(x_vec, y_vec)
-	# C = x_grid + 1j*y_grid
+	y_vec = np.linspace(xy_lim, -xy_lim, n_grid)
 
 	# define mandelbrot grid
 	G = np.zeros((n_grid, n_grid))
@@ -46,15 +52,75 @@ def mandelbrotGrid(n_grid=100, xy_lim=2):
 	# assignment
 	for i in range(0, n_grid):
 		for j in range(0, n_grid):
-			result, iteration = isMandelbrot(x_vec[i] + 1j*y_vec[j])
+			result, iteration = isMandelbrot(x_vec[j] + 1j*y_vec[i])
 			G[i, j] = iteration
 
 	return G
 
-def plotMandelbrot(n_grid=100):
-	# Generates the Mandelbrot plot and saves it.
-	plt.imshow(mandelbrotGrid(n_grid))
-	plt.savefig("mandelbrot.pdf")
+def plotMandelbrotGray(Grid=np.zeros((100, 100)), n_grid=100):
+	# plot Mandelbrot grid and save it. 
+	step = int(n_grid/4.0)
+	x = np.arange(0, n_grid + step, step)
+	x_label = ['-2', '-1', '0', '1', '2']
+	y_label = ['2', '1', '0', '-1', '-2']
+	plt.figure(figsize=(1.53, 1.53))
+	plt.imshow(Grid, cmap='Greys')
+	title = 'N = ' + str(n_grid)
+	plt.title('N = ' + str(n_grid))
+	plt.xticks(x, x_label)
+	plt.xlabel('x')
+	plt.yticks(x, y_label)
+	plt.ylabel('y')
+	plt.gcf().subplots_adjust(left=0.2)
+	plt.gcf().subplots_adjust(bottom=0.22)
+	filename = 'mandelbrot_gray_n' + str(n_grid) + '.pdf'
+	plt.savefig(filename)
+
+def plotMandelbrotColored(Grid=np.zeros((100, 100)), n_grid=100):
+	# plot Mandelbrot grid and save it. 
+	step = int(n_grid/4.0)
+	x = np.arange(0, n_grid + step, step)
+	x_label = ['-2', '-1', '0', '1', '2']
+	y_label = ['2', '1', '0', '-1', '-2']
+	plt.figure(figsize=(1.53, 1.53))
+	plt.imshow(Grid, cmap="hot")
+	title = 'N = ' + str(n_grid)
+	plt.title('N = ' + str(n_grid))
+	plt.xticks(x, x_label)
+	plt.xlabel('x')
+	plt.yticks(x, y_label)
+	plt.ylabel('y')
+	plt.gcf().subplots_adjust(left=0.2)
+	plt.gcf().subplots_adjust(bottom=0.22)
+	filename = 'mandelbrot_colored_n' + str(n_grid) + '.pdf'
+	plt.savefig(filename)
+
+def plotMandelbrotLog(Grid=np.zeros((100, 100)), n_grid=100):
+	# calculate log10 of the grid
+	Grid = np.log10(Grid)
+	# plot Mandelbrot grid and save it. 
+	step = int(n_grid/4.0)
+	x = np.arange(0, n_grid + step, step)
+	x_label = ['-2', '-1', '0', '1', '2']
+	y_label = ['2', '1', '0', '-1', '-2']
+	plt.figure(figsize=(1.53, 1.53))
+	plt.imshow(Grid, cmap="hot")
+	title = 'N = ' + str(n_grid)
+	plt.title('N = ' + str(n_grid) + ', Log scale')
+	plt.xticks(x, x_label)
+	plt.xlabel('x')
+	plt.yticks(x, y_label)
+	plt.ylabel('y')
+	plt.gcf().subplots_adjust(left=0.2)
+	plt.gcf().subplots_adjust(bottom=0.22)
+	filename = 'mandelbrot_log_n' + str(n_grid) + '.pdf'
+	plt.savefig(filename)
+
+
+
+
+	
+
 
 	
 
